@@ -2,50 +2,51 @@ const firstVideo = document.getElementById("firstVideo");
 const secondVideo = document.getElementById("secondVideo");
 const finalScreen = document.getElementById("finalScreen");
 
+const startScreen = document.getElementById("startScreen");
+const startBtn = document.getElementById("startBtn");
 
-// ========================================
-// FIRST VIDEO
-// ========================================
-
-// Yahan "Ready for this..." ke exact time ko set karenge.
-// Pehle 12 seconds try karte hain.
 const READY_TIME = 5;
 
 
-// Page load hote hi first video start
-window.addEventListener("load", () => {
+// ========================================
+// START
+// ========================================
 
-    firstVideo.play().catch(() => {
-        console.log("Video play karne ke liye screen par click karein.");
+startBtn.addEventListener("click", () => {
+
+    startScreen.classList.add("hidden");
+
+    firstVideo.currentTime = 0;
+    firstVideo.muted = false;
+
+    firstVideo.play().catch(error => {
+        console.log("First video play error:", error);
     });
 
 });
 
 
-// First video ko READY_TIME par stop karo
+// ========================================
+// FIRST VIDEO - ONLY 5 SECONDS
+// ========================================
+
 firstVideo.addEventListener("timeupdate", () => {
 
     if (firstVideo.currentTime >= READY_TIME) {
 
-        // First video stop
         firstVideo.pause();
 
-        // First video hide
         firstVideo.classList.add("hidden");
 
-
-        // ========================================
-        // SECOND VIDEO
-        // ========================================
-
+        // SECOND VIDEO START
         secondVideo.classList.remove("hidden");
 
         secondVideo.currentTime = 0;
+        secondVideo.muted = false;
 
-        secondVideo.play().catch(() => {
-            console.log("Second video play nahi hua.");
+        secondVideo.play().catch(error => {
+            console.log("Second video play error:", error);
         });
-
     }
 
 });
@@ -57,14 +58,29 @@ firstVideo.addEventListener("timeupdate", () => {
 
 secondVideo.addEventListener("ended", () => {
 
-    // Second video hide
+    /*
+       Video ko hidden karne ke bajay
+       usko screen se hata rahe hain,
+       taaki uska audio photo ke time chale.
+    */
+
     secondVideo.classList.add("hidden");
 
-
-    // ========================================
-    // FINAL GANESH JI PHOTO
-    // ========================================
-
     finalScreen.classList.remove("hidden");
+
+    /*
+       SECOND VIDEO KO DOBARA PLAY KARTE HAIN
+       LEKIN VISUAL HIDDEN HAI.
+
+       Isse second video ka original audio
+       photo ke saath ek baar chalega.
+    */
+
+    secondVideo.currentTime = 0;
+    secondVideo.muted = false;
+
+    secondVideo.play().catch(error => {
+        console.log("Photo music error:", error);
+    });
 
 });
