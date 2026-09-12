@@ -20,7 +20,7 @@ body {
     background: #000;
 }
 
-/* Videos */
+/* VIDEOS */
 
 .video {
     position: absolute;
@@ -33,14 +33,53 @@ body {
     background: #000;
 
     opacity: 1;
-    transition: opacity 1s ease;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Final Ganesh Ji Screen */
+/* START SCREEN */
+
+.startScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
+}
+
+.startScreen button {
+    padding: 18px 35px;
+
+    border: none;
+    border-radius: 50px;
+
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+
+    color: white;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 15px rgba(255, 150, 0, 0.8),
+        0 0 35px rgba(255, 100, 0, 0.5);
+
+    animation: buttonGlow 1.5s infinite alternate;
+}
+
+.startScreen button:hover {
+    transform: scale(1.08);
+}
+
+/* FINAL PHOTO */
 
 .final {
     position: absolute;
@@ -69,7 +108,7 @@ body {
     animation: slowZoom 6s ease forwards;
 }
 
-/* Final Text */
+/* FINAL TEXT */
 
 .finalText {
     position: absolute;
@@ -109,10 +148,9 @@ body {
     font-family: Georgia, serif;
 }
 
-/* Animations */
+/* ANIMATIONS */
 
 @keyframes finalFade {
-
     from {
         opacity: 0;
     }
@@ -123,7 +161,6 @@ body {
 }
 
 @keyframes slowZoom {
-
     from {
         transform: scale(1);
     }
@@ -134,7 +171,6 @@ body {
 }
 
 @keyframes textGlow {
-
     from {
         text-shadow:
             0 0 8px rgba(255, 180, 50, 0.8),
@@ -145,5 +181,18 @@ body {
         text-shadow:
             0 0 15px rgba(255, 220, 100, 1),
             0 0 30px rgba(255, 120, 0, 0.9);
+    }
+}
+
+@keyframes buttonGlow {
+    from {
+        box-shadow:
+            0 0 10px rgba(255, 150, 0, 0.6);
+    }
+
+    to {
+        box-shadow:
+            0 0 30px rgba(255, 180, 0, 1),
+            0 0 50px rgba(255, 100, 0, 0.7);
     }
 }
