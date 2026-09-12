@@ -5,11 +5,14 @@ const finalScreen = document.getElementById("finalScreen");
 const startScreen = document.getElementById("startScreen");
 const startBtn = document.getElementById("startBtn");
 
+// "Ready for this..." wale point ka time
 const READY_TIME = 5;
+
+let secondVideoStarted = false;
 
 
 // ========================================
-// START
+// START WEBSITE
 // ========================================
 
 startBtn.addEventListener("click", () => {
@@ -27,18 +30,24 @@ startBtn.addEventListener("click", () => {
 
 
 // ========================================
-// FIRST VIDEO - ONLY 5 SECONDS
+// FIRST VIDEO
+// Ready for this... ke baad SECOND VIDEO
 // ========================================
 
 firstVideo.addEventListener("timeupdate", () => {
 
-    if (firstVideo.currentTime >= READY_TIME) {
+    if (
+        firstVideo.currentTime >= READY_TIME &&
+        !secondVideoStarted
+    ) {
 
+        secondVideoStarted = true;
+
+        // First video stop
         firstVideo.pause();
-
         firstVideo.classList.add("hidden");
 
-        // SECOND VIDEO START
+        // Second video show
         secondVideo.classList.remove("hidden");
 
         secondVideo.currentTime = 0;
@@ -58,29 +67,11 @@ firstVideo.addEventListener("timeupdate", () => {
 
 secondVideo.addEventListener("ended", () => {
 
-    /*
-       Video ko hidden karne ke bajay
-       usko screen se hata rahe hain,
-       taaki uska audio photo ke time chale.
-    */
-
+    // Second video completely stop
+    secondVideo.pause();
     secondVideo.classList.add("hidden");
 
+    // Final Ganesh Ji photo show
     finalScreen.classList.remove("hidden");
-
-    /*
-       SECOND VIDEO KO DOBARA PLAY KARTE HAIN
-       LEKIN VISUAL HIDDEN HAI.
-
-       Isse second video ka original audio
-       photo ke saath ek baar chalega.
-    */
-
-    secondVideo.currentTime = 0;
-    secondVideo.muted = false;
-
-    secondVideo.play().catch(error => {
-        console.log("Photo music error:", error);
-    });
 
 });
